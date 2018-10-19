@@ -16,5 +16,7 @@
     "url": "https://github.com/ximpledev/app-test/issues"
   },
   "homepage": "https://github.com/ximpledev/app-test#readme",
-  "dependencies": {}
+  "dependencies": {
+    "lib-test": "git+ssh://git@github.com:ximpledev/lib-test.git"
+  }
 }
