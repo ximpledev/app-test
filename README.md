@@ -25,53 +25,18 @@ console.log(greet('Jerry'));
 
 done.
 
-make sure to add .gitignore before pushing
-
------
-
-2-1. using npm install (git+) with HTTPS
-
-- node unlink lib-test
-
-- add .gitignore
-node_modules/
-
-- go to lib-test GitHub repo, press 'Copy or download' button
-
-- choose 'Clone with HTTPS', copy the URL
-in this case:
-https://github.com/ximpledev/lib-test.git
-
-- modify package.json
-
-"dependencies": {
-  "lib-test": "git+",
-}
-
-paste 'https://github.com/ximpledev/lib-test.git' after 'git+'
-=>
-"dependencies": {
-  "lib-test": "git+https://github.com/ximpledev/lib-test.git"
-}
-
-- npm i
-
-(there could be a GitHub login dialog pop-op,
-fill in username & password, and we're good to go)
-
-- node app
-
-done.
-
 ps,
 if lib-test has modifications,
 app-test can automatically use it without help of any command.
 
 -----
 
-2-2. using npm install (git+) with SSH
+2-1. using npm install (git+) with SSH
 
-- npm uninstall lib-test
+- node unlink lib-test
+
+- add .gitignore
+node_modules/
 
 - go to lib-test GitHub repo, press 'Copy or download' button
 
@@ -107,3 +72,86 @@ if lib-test has modifications,
 then app-test can use the latest lib-test.
 
 -----
+
+2-2. using npm install (git+) with HTTPS
+
+- npm uninstall lib-test
+
+- go to lib-test GitHub repo, press 'Copy or download' button
+
+- choose 'Clone with HTTPS', copy the URL
+in this case:
+https://github.com/ximpledev/lib-test.git
+
+- modify package.json
+
+"dependencies": {
+  "lib-test": "git+",
+}
+
+paste 'https://github.com/ximpledev/lib-test.git' after 'git+'
+=>
+"dependencies": {
+  "lib-test": "git+https://github.com/ximpledev/lib-test.git"
+}
+
+- npm i
+
+(there could be a GitHub login dialog pop-op,
+fill in username & password, and we're good to go)
+
+- node app
+
+done.
+
+-----
+
+3. using Babel
+
+- npm i -D babel-cli babel-core babel-preset-env
+
+- move app.js to src/app.js
+(cuz we want to use src/ to put ES6 code and dist/ to put Babel-transpiled code)
+
+- modify package.json
+"scripts": {
+  "build": "babel src/ -d dist/",
+  ...
+}
+
+- npm run build
+dist/ will be created but app.js in it hasn't been transpiled
+
+- modify package.json
+"scripts": {
+  "prebuild": "rm -rf dist/",
+  ...
+}
+to remove dist/ every time before building
+
+- add .babelrc
+{
+  "presets": [
+    "env"
+  ]
+}
+
+- npm run build
+now dist/app.js is transpiled
+
+- we don't have to modify package.json
+to let npm know what the primary main entry point is
+
+"main": "app.js",
+=>
+"main": "dist/app.js",
+
+cuz it's not a lib
+
+- instead, we modify package.json
+"scripts": {
+  "start": "node dist/app",
+  ...
+}
+
+- npm start
