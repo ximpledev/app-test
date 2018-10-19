@@ -15,5 +15,6 @@
   "bugs": {
     "url": "https://github.com/ximpledev/app-test/issues"
   },
-  "homepage": "https://github.com/ximpledev/app-test#readme"
+  "homepage": "https://github.com/ximpledev/app-test#readme",
+  "dependencies": {}
 }
