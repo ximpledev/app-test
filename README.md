@@ -161,7 +161,7 @@ cuz it's not a lib
 
 -----
 
-4. Webpack aliases
+4. Webpack alias
 
 when using Webpack, you can use its 'alias' to replace 'npm link', if you wish
 
@@ -194,3 +194,14 @@ e.g.,
 import greet from 'lib-test';
 ...
 const greeting = greet('Jerry');
+
+-----
+
+in my point of view,
+'npm link' uses global folders,
+that is, we can't use 'npm link' for two modules with the same name
+
+'Webpack aliases' use relative paths
+
+when using Webpack, Webpack alias is a better choice
+but whether using Webpack or not, npm link is simpler
