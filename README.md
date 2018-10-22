@@ -104,6 +104,9 @@ fill in username & password, and we're good to go)
 
 done.
 
+after testing how to use npm install (git+),
+uninstall it and, for convenience, use 'npm link' instead, if you wish
+
 -----
 
 3. using Babel
@@ -155,3 +158,5 @@ cuz it's not a lib
 }
 
 - npm start
+
+-----
