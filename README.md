@@ -31,7 +31,7 @@ app-test can automatically use it without help of any command.
 
 -----
 
-2-1. using npm install (git+) with SSH
+2-1. using npm install (git+) with HTTPS (which is recommended by GitHub)
 
 - node unlink lib-test
 
@@ -40,14 +40,52 @@ node_modules/
 
 - go to lib-test GitHub repo, press 'Copy or download' button
 
-- choose 'Clone with SSH', copy the URL
+- choose 'Clone with HTTPS', copy the URL
 in this case:
-git@github.com:ximpledev/lib-test.git
+'https://github.com/ximpledev/lib-test.git'
 
 - modify package.json
 
 "dependencies": {
-  "lib-test": "git+ssh://",
+  "lib-test": "git+(...)",
+}
+
+paste 'https://github.com/ximpledev/lib-test.git' after 'git+'
+=>
+"dependencies": {
+  "lib-test": "git+https://github.com/ximpledev/lib-test.git"
+}
+
+- npm i
+
+(there could be a GitHub login dialog pop-op,
+fill in username & password, and we're good to go)
+
+- node app
+
+done.
+
+ps,
+if lib-test has modifications,
+- npm update
+then app-test can use the latest lib-test.
+
+-----
+
+2-2. using npm install (git+) with SSH
+
+- npm uninstall lib-test
+
+- go to lib-test GitHub repo, press 'Copy or download' button
+
+- choose 'Clone with SSH', copy the URL
+in this case:
+'git@github.com:ximpledev/lib-test.git'
+
+- modify package.json
+
+"dependencies": {
+  "lib-test": "git+ssh://(...)",
 }
 
 paste 'git@github.com:ximpledev/lib-test.git' after 'git+ssh://'
@@ -61,44 +99,6 @@ paste 'git@github.com:ximpledev/lib-test.git' after 'git+ssh://'
 https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
 
 - npm i
-
-- node app
-
-done.
-
-ps,
-if lib-test has modifications,
-- npm update
-then app-test can use the latest lib-test.
-
------
-
-2-2. using npm install (git+) with HTTPS
-
-- npm uninstall lib-test
-
-- go to lib-test GitHub repo, press 'Copy or download' button
-
-- choose 'Clone with HTTPS', copy the URL
-in this case:
-https://github.com/ximpledev/lib-test.git
-
-- modify package.json
-
-"dependencies": {
-  "lib-test": "git+",
-}
-
-paste 'https://github.com/ximpledev/lib-test.git' after 'git+'
-=>
-"dependencies": {
-  "lib-test": "git+https://github.com/ximpledev/lib-test.git"
-}
-
-- npm i
-
-(there could be a GitHub login dialog pop-op,
-fill in username & password, and we're good to go)
 
 - node app
 
@@ -160,3 +160,37 @@ cuz it's not a lib
 - npm start
 
 -----
+
+4. Webpack aliases
+
+when using Webpack, you can use its 'alias' to replace 'npm link', if you wish
+
+e.g.,
+in webpack.config.js
+
+add
+const LIB_DIR = path.resolve(__dirname, '../libs/lib-test');
+...
+module.exports = (env={}) => {
+  ...
+  return {
+    ...
+    resolve: {
+      extensions: ['.js', '.jsx'], // default: ['.js', '.json']
+        alias: {
+          styles: path.resolve(SRC_DIR, 'styles'),
+          images: path.resolve(SRC_DIR, 'assets/images'),
+          'lib-test': LIB_DIR
+        }
+      }
+    },
+    ...
+  }
+}
+
+then you can use lib-test by importing it
+
+e.g.,
+import greet from 'lib-test';
+...
+const greeting = greet('Jerry');
