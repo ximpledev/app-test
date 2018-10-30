@@ -205,3 +205,32 @@ that is, we can't use 'npm link' for two modules with the same name
 
 when using Webpack, Webpack alias is a better choice
 but whether using Webpack or not, npm link is simpler
+
+-----
+
+p.s.,
+We can see the global symlink that was created by running:
+> ls -al $(npm root -g)
+
+and the local symlink that was created by running:
+> ls -al ./node_modules
+(which is used by app-test)
+
+-----
+
+if app-test wants to unlink from lib-test,
+lib-test can't call 'unlink' before app-test call 'unlink lib-test'
+that is, we have to follow the order below...
+
+1. lib-test calls > npm link
+2. app-test calls > npm link lib-test
+3. app-test calls > npm unlink lib-test
+4. lib-test calls > npm unlink
+
+the order below won't work...
+1. lib-test calls > npm link
+2. app-test calls > npm link lib-test
+3. lib-test calls > npm unlink
+4. app-test calls > npm unlink lib-test
+
+be careful!

@@ -2,11 +2,11 @@
   "name": "app-test",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "scripts": {
-    "start": "node dist/app",
-    "prebuild": "rm -rf dist/",
-    "build": "babel src/ -d dist/",
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && babel src/ -d dist/",
+    "start": "npm run build && node dist/app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,10 +19,12 @@
     "url": "https://github.com/ximpledev/app-test/issues"
   },
   "homepage": "https://github.com/ximpledev/app-test#readme",
-  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0"
+  },
+  "dependencies": {
+    "lib-test": "git+https://github.com/ximpledev/lib-test.git"
   }
 }

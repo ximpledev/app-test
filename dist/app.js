@@ -6,6 +6,4 @@ var _libTest2 = _interopRequireDefault(_libTest);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log((0, _libTest2.default)('Jerry')); // const greet = require('lib-test');
-
-// console.log(greet('Jerry'));
+console.log((0, _libTest2.default)('Jerry'));
